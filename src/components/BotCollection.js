@@ -1,48 +1,84 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import BotCard from "./BotCard";
+import BotSpecs from "./BotSpecs";
+import SortBar from "./SortBar";
+import FilterBar from "./FilterBar";
 
-function BotCollection() {
+function BotCollection({ setYourBotArmy }) {
+  // State to store the initial list of bots fetched from the API
   const [bots, setBots] = useState([]);
+  // State to store the list of bots to be displayed after sorting and filtering
+  const [displayedBots, setDisplayedBots] = useState([]);
+  // State to store the currently selected bot for displaying its specs
+  const [selectedBot, setSelectedBot] = useState(null);
 
+  // Fetch the list of bots from the API on component mount
   useEffect(() => {
     fetch("/bots")
       .then((response) => response.json())
-      .then((data) => setBots(data));
+      .then((data) => {
+        setBots(data);
+        setDisplayedBots(data);
+      });
   }, []);
 
-  const botListing = (bot) => {
-    // Checking if a bot from the same class is already enlisted
-    const isBotClassEnlisted = yourBotArmy.some(
-      (enlistedBot) => enlistedBot.bot_class === bot.bot_class
-    );
-
-    if (isBotClassEnlisted) {
-      // If a bot from the same class is already enlisted, return
-      return;
-    }
-
-    // Add a bot to users YourBotArmy
-    setYourBotArmy([...yourBotArmy, bot]);
-
-    // Remove the selected bot from the BotCollection
-    setBots(bots.filter((b) => b.id !== bot.id));
+  // Function to handle sorting the bots based on the selected criterion
+  const sortBots = (criterion) => {
+    const sortedBots = [...displayedBots].sort((a, b) => {
+      if (a[criterion] < b[criterion]) return 1;
+      if (a[criterion] > b[criterion]) return -1;
+      return 0;
+    });
+    setDisplayedBots(sortedBots);
   };
 
-  // Implement the show specs logic here
-  const botDetails = (bot) => {
-    // Navigate to the BotSpecs page with the bot's id as a parameter
-    navigate(`/bots/${bot.id}`);
+  // Function to handle filtering the bots based on the selected filters
+  const botFilter = (filters) => {
+    if (filters.length === 0) {
+      setDisplayedBots(bots);
+    } else {
+      const filtered = bots.filter((bot) => filters.includes(bot.bot_class));
+      setDisplayedBots(filtered);
+    }
+  };
+
+  // Function to handle enlisting a bot
+  const handleEnlist = (bot) => {
+    setYourBotArmy((prevYourBotArmy) => [...prevYourBotArmy, bot]);
+  };
+
+  // Function to handle showing the specs of a selected bot
+  const handleShowSpecs = (bot) => {
+    setSelectedBot(bot);
+  };
+
+  // Function to handle going back to the bot list from the bot specs view
+  const handleBack = () => {
+    setSelectedBot(null);
   };
 
   return (
     <div>
-      {bots.map((bot) => (
-        <BotCard
-          key={bot.id}
-          bot={bot}
-          botListing={botListing}
-          botDetails={botDetails}
+      {/* Render the SortBar and FilterBar components */}
+      <SortBar handleSort={handleSort} />
+      <FilterBar handleFilter={handleFilter} />
+      {/* Conditionally render either the BotSpecs component or the BotCard components */}
+      {selectedBot ? (
+        <BotSpecs
+          bot={selectedBot}
+          handleBack={handleBack}
+          handleEnlist={handleEnlist}
         />
-      ))}
+      ) : (
+        displayedBots.map((bot) => (
+          <BotCard
+            key={bot.id}
+            bot={bot}
+            handleEnlist={handleEnlist}
+            handleShowSpecs={handleShowSpecs}
+          />
+        ))
+      )}
     </div>
   );
 }
