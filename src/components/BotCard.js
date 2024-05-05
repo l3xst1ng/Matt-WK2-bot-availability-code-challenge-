@@ -1,5 +1,5 @@
 import React from "react";
-import "./components/BotsCards.css";
+import "./components/BotCard.css";
 
 function BotsCards({ bot, botListing, botDetails }) {
   return (
