@@ -1,0 +1,43 @@
+.bot-card {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.bot-image-container {
+  margin-right: 16px;
+}
+
+.bot-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.bot-info {
+  flex-grow: 1;
+}
+
+.bot-name {
+  margin-top: 0;
+}
+
+.bot-catchphrase {
+  font-style: italic;
+  color: #666;
+}
+
+.bot-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.bot-actions {
+  display: flex;
+  gap: 8px;
+}
