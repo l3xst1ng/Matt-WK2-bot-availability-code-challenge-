@@ -1,0 +1,17 @@
+.filter-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.filter-bar h3 {
+  margin-right: 1rem;
+}
+
+.filter-bar label {
+  margin-right: 0.5rem;
+}
+
+.filter-bar input[type="checkbox"] {
+  margin-right: 0.25rem;
+}

@@ -15,7 +15,7 @@ function BotCollection({ setYourBotArmy }) {
 
   // Fetch the list of bots from the API on component mount
   useEffect(() => {
-    fetch("/bots")
+    fetch("http://localhost:3000/bots")
       .then((response) => response.json())
       .then((data) => {
         setBots(data);
