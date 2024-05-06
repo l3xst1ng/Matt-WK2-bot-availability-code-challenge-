@@ -3,6 +3,7 @@ import BotCard from "./BotCard";
 import BotSpecs from "./BotSpecs";
 import SortBar from "./SortBar";
 import FilterBar from "./FilterBar";
+import "./components/BotCollection.css";
 
 function BotCollection({ setYourBotArmy }) {
   // State to store the initial list of bots fetched from the API
@@ -58,10 +59,13 @@ function BotCollection({ setYourBotArmy }) {
   };
 
   return (
-    <div>
-      {/* Render the SortBar and FilterBar components */}
-      <SortBar handleSort={handleSort} />
-      <FilterBar handleFilter={handleFilter} />
+    <div className="bot-collection">
+      <div className="bot-controls">
+        {/* Rendering the SortBar and FilterBar components */}
+        <SortBar handleSort={handleSort} />
+        <FilterBar handleFilter={handleFilter} />
+      </div>
+
       {/* Conditionally render either the BotSpecs component or the BotCard components */}
       {selectedBot ? (
         <BotSpecs
@@ -70,14 +74,16 @@ function BotCollection({ setYourBotArmy }) {
           handleEnlist={handleEnlist}
         />
       ) : (
-        displayedBots.map((bot) => (
-          <BotCard
-            key={bot.id}
-            bot={bot}
-            handleEnlist={handleEnlist}
-            handleShowSpecs={handleShowSpecs}
-          />
-        ))
+        <div className="bot-cards-container">
+          {displayedBots.map((bot) => (
+            <BotCard
+              key={bot.id}
+              bot={bot}
+              handleEnlist={handleEnlist}
+              handleShowSpecs={handleShowSpecs}
+            />
+          ))}
+        </div>
       )}
     </div>
   );
