@@ -1,18 +1,26 @@
 import React from "react";
+import "./YourBotArmy.css";
 
-function YourBotArmy({ yourBotArmy, botRelease, botDischarge }) {
+function YourBotArmy({ yourBotArmy, handleRelease, handleDischarge }) {
   return (
-    <div>
+    <div className="your-bot-army">
       <h2>Your Bot Army</h2>
-      {yourBotArmy.map((bot) => (
-        <div key={bot.id}>
-          <img src={bot.avatar_url} alt={bot.name} />
-          <h3>{bot.name}</h3>
-          <p>Class: {bot.bot_class}</p>
-          <button onClick={() => botRelease(bot)}>Release</button>
-          <button onClick={() => botDischarge(bot)}>Discharge</button>
-        </div>
-      ))}
+      <div className="bot-army-container">
+        {yourBotArmy.map((bot) => (
+          <div key={bot.id} className="bot-army-card">
+            <img src={bot.avatar_url} alt={bot.name} className="bot-avatar" />
+            <h3 className="bot-name">{bot.name}</h3>
+            <p className="bot-class">Class: {bot.bot_class}</p>
+            <button onClick={() => handleRelease(bot)}>Release</button>
+            <button
+              onClick={() => handleDischarge(bot)}
+              className="discharge-button"
+            >
+              X
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

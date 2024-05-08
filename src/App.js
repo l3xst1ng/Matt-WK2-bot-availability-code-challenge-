@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import AppRoutes from "./Routes";
+import AppRoutes from "./components/Routes";
+import "./App.css";
 
 function App() {
   const [bots, setBots] = useState([]);
@@ -11,7 +12,7 @@ function App() {
       .then((data) => setBots(data));
   }, []);
 
-  const handleEnlist = (bot) => {
+  const botEnlisting = (bot) => {
     setYourBotArmy((prevYourBotArmy) => [...prevYourBotArmy, bot]);
   };
 
@@ -21,17 +22,36 @@ function App() {
 
   const handleDischarge = (bot) => {
     setYourBotArmy(yourBotArmy.filter((b) => b.id !== bot.id));
-    // Call API to delete the bot
   };
+  //   // Calling API to delete the bot
+
+  //   //   fetch(`http://localhost:3000/bots/${bot.id}`, {
+  //   //     method: "DELETE",
+  //   //     headers: {},
+  //   //     "Content-Type": "application/json",
+  //   //   });
+  //   // };
 
   return (
-    <AppRoutes
-      bots={bots}
-      handleEnlist={handleEnlist}
-      handleRelease={handleRelease}
-      handleDischarge={handleDischarge}
-      yourBotArmy={yourBotArmy}
-    />
+    <div>
+      <h1 className="header">Welcome to Bot Army</h1>
+      <p className="header-text-1">
+        This is the one and only spot in the known universe where you can custom
+        build your own Bot Army!
+      </p>
+      <p className="header-text-2">
+        Here, you can browse through a list of robots, view a robot's details,
+        and, enlist a bot to your army and release or discharge a bot from your
+        army. Enjoy!
+      </p>
+      <AppRoutes
+        bots={bots}
+        botEnlisting={botEnlisting}
+        handleRelease={handleRelease}
+        handleDischarge={handleDischarge}
+        yourBotArmy={yourBotArmy}
+      />
+    </div>
   );
 }
 

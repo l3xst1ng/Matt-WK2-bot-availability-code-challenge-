@@ -1,17 +1,24 @@
 .filter-bar {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
 }
 
 .filter-bar h3 {
-  margin-right: 1rem;
+  margin-right: 10px;
+  margin-left: 25px;
+  font-size: 20px;
+  margin-top: 30px;
 }
 
-.filter-bar label {
-  margin-right: 0.5rem;
+.filter-option {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.filter-bar input[type="checkbox"] {
-  margin-right: 0.25rem;
+.filter-option label {
+  margin-left: 3px;
 }

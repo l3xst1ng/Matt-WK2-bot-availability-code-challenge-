@@ -1,0 +1,38 @@
+.bot-specs {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.bot-details {
+  display: flex;
+  align-items: center;
+}
+
+.bot-avatar {
+  width: 300px;
+  object-fit: contain;
+}
+
+.back-to-list {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff4558;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px;
+}
+
+.back-to-list span {
+  margin-right: 5px;
+  margin-top: auto;
+  font-weight: bold;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+}

@@ -1,7 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./FilterBar.css";
 
 function FilterBar({ handleFilter }) {
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
+  useEffect(() => {
+    handleFilter(selectedFilters);
+  }, [handleFilter, selectedFilters]);
+
+  const handleFilterChange = (filter, isChecked) => {
+    if (isChecked) {
+      setSelectedFilters([...selectedFilters, filter]);
+    } else {
+      setSelectedFilters(selectedFilters.filter((f) => f !== filter));
+    }
+    handleFilter(selectedFilters);
+  };
+
   const botClasses = [
     "Support",
     "Medic",
@@ -10,36 +25,21 @@ function FilterBar({ handleFilter }) {
     "Captain",
     "Witch",
   ];
-  const [selectedFilters, setSelectedFilters] = useState([]);
-
-  const handleFilterChange = (botClass) => {
-    if (selectedFilters.includes(botClass)) {
-      setSelectedFilters(
-        selectedFilters.filter((filter) => filter !== botClass)
-      );
-    } else {
-      setSelectedFilters([...selectedFilters, botClass]);
-    }
-  };
 
   return (
     <div className="filter-bar">
-      <h3>Filter By Class:</h3>
+      <h3>Filter By Class</h3>
       {botClasses.map((botClass) => (
-        <div key={botClass}>
-          <label>
-            <input
-              type="checkbox"
-              checked={selectedFilters.includes(botClass)}
-              onChange={() => handleFilterChange(botClass)}
-            />
-            {botClass}
-          </label>
+        <div key={botClass} className="filter-option">
+          <input
+            type="checkbox"
+            id={botClass}
+            checked={selectedFilters.includes(botClass)}
+            onChange={(e) => handleFilterChange(botClass, e.target.checked)}
+          />
+          <label htmlFor={botClass}>{botClass}</label>
         </div>
       ))}
-      <button onClick={() => handleFilter(selectedFilters)}>
-        Apply Filters
-      </button>
     </div>
   );
 }
